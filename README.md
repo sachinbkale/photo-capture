@@ -1,2 +1,1 @@
-# photo-capture
-photo-capture
+# phooto-capture
