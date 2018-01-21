@@ -19,7 +19,7 @@ test:
   pre:
     -  mvn clean test # running maven test cases
   post:
-    -  java -jar target/photo-capture-1.0-jar-with-dependencies.jar
+    -  java -jar /home/ubuntu/photo-capture/target/photo-capture-1.0-jar-with-dependencies.jar
 deployment:
   hub:
     branch: /.*/
