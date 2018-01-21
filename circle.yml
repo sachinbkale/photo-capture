@@ -18,8 +18,6 @@ dependencies:
 test:
   pre:
     -  mvn clean test # running maven test cases
-  post:
-    -  mvn spring-boot:run
 deployment:
   hub:
     branch: /.*/
