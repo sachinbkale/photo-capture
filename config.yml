@@ -27,4 +27,4 @@ jobs:
             path: target/surefire-reports
         
         - store_artifacts:
-            path: target/photo-capture-0.0.1-SNAPSHOT.jar
+            path: target/photo-capture-1.0-jar-with-dependencies.jar
