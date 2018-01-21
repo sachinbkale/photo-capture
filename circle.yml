@@ -21,7 +21,8 @@ test:
   post:
     -  java -jar target/photo-capture-1.0-jar-with-dependencies.jar
   override:
-    - docker run -d photo_capture --rm=true
+    - docker tag photocapture_photocapture $DOCKER_HUB_USER_ID/photo_capture:latest
+    - docker run -d $DOCKER_HUB_USER_ID/photo_capture:latest --rm=false
 deployment:
   hub:
     branch: /.*/
