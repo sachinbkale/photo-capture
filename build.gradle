@@ -1,18 +1,21 @@
 buildscript {
 	ext {
-		springBootVersion = '1.4.3.RELEASE'
+		springBootVersion = '1.5.2.RELEASE'
+		gradleDockerVersion = '1.2'
 	}
 	repositories {
 		mavenCentral()
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+		classpath("se.transmode.gradle:gradle-docker:${gradleDockerVersion}")
 	}
 }
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
+apply plugin: 'docker'
 
 jar {
 	baseName = 'photo-capture'
@@ -36,7 +39,64 @@ bootRun {
     addResources = true
 }
 
-task copyTask(type: Copy) {
+springBoot {
+    mainClass = "com.cronos.posidon.CronosWebApplication"
+}
+
+task copyJar(type: Copy) {
+    dependsOn   'jar'
+    from        "build/libs/photo-capture-${project.version}.jar"
+    into        'build/docker'
+    rename { String fileName ->
+        fileName.replace("-${project.version}", "")
+    }
+}
+
+task copyKey(type: Copy) {
     from 'keystore.p12'
     into 'build/libs'
 }
+
+task buildDocker2(type: Docker) {
+	  dependsOn   copyJar
+	  baseImage = 'java:openjdk-8'
+	  push = project.hasProperty('push')
+	  tag = 'kalesa/photo-capture'
+	  addFile {
+	    from jar
+	    rename {'photo-capture.jar'}
+	  }
+	  addFile file('keystore.p12')
+	  doFirst {
+        copy {
+            from 'log'
+            into stageDir
+        }
+    }
+	  entryPoint(['java', '-Djava.security.egd=file:/dev/./urandom', '-jar', '/photo-capture.jar'])
+	  exposePort(80)
+	  exposePort(8080)
+	  exposePort(8443)
+}
+task buildDocker(type: Docker, dependsOn: build) {
+  push = true
+  applicationName = jar.baseName
+  dockerfile = file('Dockerfile')
+  tag = 'kalesa/photo-capture'
+	  addFile {
+	    from jar
+	    rename {'photo-capture.jar'}
+	  }
+}
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.10' //we want gradle 2.10 to run this project
+}
+buildDocker2.dependsOn(build)
+buildDocker2.dependsOn(copyJar)
+
+task stage (
+  dependsOn: ['compileJava', 'processResources', 'classes', 'findMainClass', 'jar', 'bootRepackage', 'assemble']
+
+//docker run -p 8080:8080 -p 8443:8443 -p 80:80 -d kalesa/photo-capture
+//docker build . -t kalesa/photo-capture
+)
