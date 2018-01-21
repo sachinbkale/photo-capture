@@ -14,7 +14,8 @@ jobs:
         - checkout
         
         - run: mvn dependency:go-offline
-        
+        - restore_cache:
+          key: photo-capture-{{ checksum "pom.xml" }}
         - save_cache:
             paths:
               - ~/.m2
