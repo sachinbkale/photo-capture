@@ -9,7 +9,7 @@ ADD pom.xml /code/pom.xml
 ADD src /code/src
 RUN ["mvn", "package"]
 #ADD build/libs/photo-capture-0.0.1-SNAPSHOT.jar /photo-capture.jar
-ADD ./target/photo-capture-1.0-jar-with-dependencies.jar photo-capture.jar
+ADD target/photo-capture-1.0-jar-with-dependencies.jar photo-capture.jar
 RUN bash -c 'touch /photo-capture.jar'
 ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "/photo-capture.jar"]
 EXPOSE 80
