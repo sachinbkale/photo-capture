@@ -22,9 +22,7 @@ jobs:
           key: photo-capture-{{ checksum "pom.xml" }}
 
         - run:
-            docker login -e $DOCKER_HUB_EMAIL -u $DOCKER_HUB_USER_ID -p $DOCKER_HUB_PWD
-            docker run -d --name $DOCKER_HUB_USER_ID/photo_capture $DOCKER_HUB_USER_ID/photo_capture
-            docker push $DOCKER_HUB_USER_ID/photo_capture:latest
+            mvn clean package docker:build
         
         - store_test_results:
             path: target/surefire-reports
