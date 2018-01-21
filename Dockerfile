@@ -4,8 +4,8 @@ RUN mkdir -p /images-upload/ /log
 FROM maven:3.5-jdk-8-alpine
 WORKDIR /code
 ADD pom.xml /code/pom.xml
-RUN ["mvn", "dependency:resolve"]
-RUN ["mvn", "verify"]
+#RUN ["mvn", "dependency:resolve"]
+#RUN ["mvn", "verify"]
 ADD src /code/src
 RUN ["mvn", "package"]
 #ADD build/libs/photo-capture-0.0.1-SNAPSHOT.jar /photo-capture.jar
