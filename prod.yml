@@ -1,0 +1,12 @@
+version: '2'
+services:
+  photo-capture:
+    image: kalesa/photo-capture
+    ports:
+        - "8080:8080"
+        - "8443:8443"
+
+  redis:
+    image: mongo:3.6
+    ports:
+      - "27017:27017"
