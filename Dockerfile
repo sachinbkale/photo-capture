@@ -1,6 +1,6 @@
 FROM java:openjdk-8
 ADD keystore.p12 /
-RUN mkdir -p /images-upload/ /log
+RUN mkdir -p /images-upload /log /code
 FROM maven:3.5-jdk-8-alpine
 WORKDIR /code
 ADD pom.xml /code/pom.xml
