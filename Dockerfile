@@ -1,6 +1,7 @@
 FROM java:openjdk-8
 ADD keystore.p12 /
 RUN mkdir -p /images-upload/ /log
+FROM maven:3.5-jdk-8-alpine
 RUN ["mvn", "package"]
 #ADD build/libs/photo-capture-0.0.1-SNAPSHOT.jar /photo-capture.jar
 ADD target/photo-capture-0.0.1-SNAPSHOT.jar photo-capture.jar
