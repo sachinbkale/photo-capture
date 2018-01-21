@@ -1,3 +1,6 @@
+general:
+  artifacts:
+    - "target/photo-capture-*.jar"
 machine:
   pre:
     - curl -sSL https://s3.amazonaws.com/circle-downloads/install-circleci-docker.sh | bash -s -- 1.10.0
@@ -17,7 +20,7 @@ deployment:
     branch: /.*/
     commands:
       - docker login -e $DOCKER_HUB_EMAIL -u $DOCKER_HUB_USER_ID -p $DOCKER_HUB_PWD
-      - docker tag dockerapp_dockerapp $DOCKER_HUB_USER_ID/dockerapp:$CIRCLE_SHA1
-      - docker tag dockerapp_dockerapp $DOCKER_HUB_USER_ID/dockerapp:latest
-      - docker push $DOCKER_HUB_USER_ID/dockerapp:$CIRCLE_SHA1
-      - docker push $DOCKER_HUB_USER_ID/dockerapp:latest
+      - docker tag photocapture_photocapture $DOCKER_HUB_USER_ID/photo_capture:$CIRCLE_SHA1
+      - docker tag photocapture_photocapture $DOCKER_HUB_USER_ID/photo_capture:latest
+      - docker push $DOCKER_HUB_USER_ID/photo_capture:$CIRCLE_SHA1
+      - docker push $DOCKER_HUB_USER_ID/photo_capture:latest
