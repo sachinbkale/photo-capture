@@ -17,10 +17,11 @@
       build: . 
       working_dir: /
       volumes:
+        - "$HOME/.m2:/.m2"
         - ./log:/logs
       ports:
         - "8080:8080"
         - "8443:8443"
-      command: gradle bootRun
+      command: mvn spring-boot:run
       depends_on:
         - mongodb
