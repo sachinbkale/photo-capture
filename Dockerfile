@@ -1,12 +1,12 @@
 FROM java:openjdk-8
 ADD keystore.p12 /
-RUN mkdir -p /images-upload /log /code
+RUN mkdir -p /images-upload /log /photo-capture
 FROM maven:3.5-jdk-8-alpine
-WORKDIR /code
-ADD pom.xml /code/pom.xml
+WORKDIR /photo-capture
+ADD pom.xml /photo-capture/pom.xml
 #RUN ["mvn", "dependency:resolve"]
 #RUN ["mvn", "verify"]
-ADD src /code/src
+ADD src /photo-capture/src
 RUN ["mvn", "package"]
 #ADD build/libs/photo-capture-0.0.1-SNAPSHOT.jar /photo-capture.jar
 ADD target/photo-capture-1.0-jar-with-dependencies.jar photo-capture.jar
