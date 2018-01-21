@@ -6,6 +6,7 @@ WORKDIR /code
 ADD pom.xml /code/pom.xml
 RUN ["mvn", "dependency:resolve"]
 RUN ["mvn", "verify"]
+ADD src /code/src
 RUN ["mvn", "package"]
 #ADD build/libs/photo-capture-0.0.1-SNAPSHOT.jar /photo-capture.jar
 ADD target/photo-capture-0.0.1-SNAPSHOT.jar photo-capture.jar
