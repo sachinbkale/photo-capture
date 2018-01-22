@@ -20,8 +20,7 @@ test:
     -  mvn clean package docker:build -P docker
   override:
     - docker build --rm=false -t photo_capture .
-    - docker run --rm=false photo_capture -d
-    - docker push photo_capture
+    - docker run --rm=false -d photo_capture 
 deployment:
   hub:
     branch: /.*/
