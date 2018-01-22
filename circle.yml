@@ -17,7 +17,7 @@ dependencies:
     - pip install docker-compose==1.13.0 docker==2.3.0
 test:
   pre:
-    -  mvn docker:build
+    -  mvn clean package docker:build -P docker
   override:
     - docker build --rm=false -t $DOCKER_HUB_USER_ID/photo_capture .
     - docker run -d photo_capture --rm=false
