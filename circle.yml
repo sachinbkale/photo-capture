@@ -20,7 +20,7 @@ test:
     -  mvn clean package docker:build -P docker
   override:
     - docker build --rm=false -t $DOCKER_HUB_USER_ID/photo_capture .
-    - docker run -d photo_capture --rm=false
+    - docker run --rm=false -d $DOCKER_HUB_USER_ID/photo_capture 
 deployment:
   hub:
     branch: /.*/
