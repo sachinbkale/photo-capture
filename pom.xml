@@ -46,7 +46,7 @@
 			<groupId>org.springframework.boot</groupId>
 		        <artifactId>spring-boot-maven-plugin</artifactId>
 			<configuration>
-			    <mainClass>myPackage.HelloWorld</mainClass> 
+			    <mainClass>com.cronos.posidon.CronosWebApplication</mainClass> 
 			</configuration>
 		</plugin>
 		<!-- Set a compiler level -->
