@@ -16,8 +16,9 @@
     </parent>
 
     <properties>
-    		<jdk.version>1.8</jdk.version>
+    	<jdk.version>1.8</jdk.version>
         <java.version>1.8</java.version>
+	<start-class>com.cronos.posidon.CronosWebApplication</start-class>
     </properties>
 
     <dependencies>
