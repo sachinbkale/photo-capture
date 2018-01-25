@@ -8,13 +8,15 @@ RUN wget -q https://services.gradle.org/distributions/gradle-3.3-bin.zip \
 ENV GRADLE_HOME /opt/gradle-3.3
 ENV PATH $PATH:/opt/gradle-3.3/bin
 
-WORKDIR /code
-ADD pom.xml /code/pom.xml
+#WORKDIR /code
+#ADD pom.xml /code/pom.xml
 
+#ADD src /code/src
 #RUN ["mvn", "dependency:resolve"]
 #RUN ["mvn", "verify"]
 
-ADD src /code/src
+WORKDIR /photo-capture
+
 RUN gradle build
 
 #ADD build/libs/photo-capture-0.0.1-SNAPSHOT.jar /photo-capture.jar
