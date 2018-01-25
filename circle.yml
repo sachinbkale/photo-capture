@@ -17,7 +17,7 @@ dependencies:
     - pip install docker-compose==1.13.0 docker==2.3.0
 test:
   pre:
-    -  mvn clean package docker:build -P docker
+    -  ./gradlew build buildDocker
   override:
     - docker build --rm=false -t photo_capture .
     - docker run --rm=false -d photo_capture 
