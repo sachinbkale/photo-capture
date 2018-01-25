@@ -81,11 +81,11 @@ task buildDocker2(type: Docker) {
 task buildDocker(type: Docker, dependsOn: build) {
   push = true
   applicationName = jar.baseName
-  dockerfile = file('Dockerfile')
+  dockerfile = file('src/main/docker/Dockerfile')
   tag = 'kalesa/photo-capture'
 	  addFile {
 	    from jar
-	    rename {'photo-capture.jar'}
+	    into stageDir
 	  }
 }
 task wrapper(type: Wrapper) {
