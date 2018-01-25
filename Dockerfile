@@ -2,6 +2,12 @@ FROM java:openjdk-8
 ADD keystore.p12 /
 RUN mkdir -p /images-upload /log /code
 FROM maven:3.5-jdk-8-alpine
+RUN wget -q https://services.gradle.org/distributions/gradle-3.3-bin.zip \
+    && unzip gradle-3.3-bin.zip -d /opt \
+    && rm gradle-3.3-bin.zip
+ENV GRADLE_HOME /opt/gradle-3.3
+ENV PATH $PATH:/opt/gradle-3.3/bin
+
 WORKDIR /code
 ADD pom.xml /code/pom.xml
 
