@@ -14,7 +14,7 @@ machine:
 dependencies:
   pre:
     - pip install docker-compose==1.13.0 docker==2.3.0
-    - gradle dependencies
+    - gradle build
   cache_directories:
       - ~/.gradle
       - ~/.ivy2
