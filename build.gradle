@@ -11,6 +11,7 @@ buildscript {
 		classpath("se.transmode.gradle:gradle-docker:${gradleDockerVersion}")
 	}
 }
+group = 'sachinkale'
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
@@ -58,10 +59,11 @@ task wrapper(type: Wrapper) {
     gradleVersion = '2.10' //we want gradle 2.10 to run this project
 }
 
-task buildDocker(type: Docker) {
+task buildDocker(type: Docker, dependsOn: build) {
   baseImage = 'openjdk:8-jre-alpine'
   push = project.hasProperty('push')
   tag = 'kalesa/photo-capture'
+  dockerfile = file('build/docker/Dockerfile')
   addFile {
     from jar
     rename {'app.jar'}
@@ -69,12 +71,10 @@ task buildDocker(type: Docker) {
   entryPoint(['java', '-Djava.security.egd=file:/dev/./urandom', '-jar', '/app.jar'])
  
 }
-buildDocker.dependsOn(build)
 //buildDocker.dependsOn(copyJar)
 
 task stage (
   dependsOn: ['compileJava', 'processResources', 'classes', 'findMainClass', 'jar', 'bootRepackage', 'assemble']
-
+)
 //docker run -p 8080:8080 -p 8443:8443 -p 80:80 -d kalesa/photo-capture
 //docker build . -t kalesa/photo-capture
-)
