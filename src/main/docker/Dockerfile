@@ -1,4 +1,4 @@
-FROM java:8
+FROM oraclelinux:7-slim
 ADD keystore.p12 /
 RUN mkdir -p /images-upload/ /log
 VOLUME /opt
