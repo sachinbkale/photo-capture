@@ -19,6 +19,8 @@
       working_dir: /
       volumes:
         - "$HOME/.m2:/.m2"
+        - ~/.gradle:/.gradle
+        - ~/.m2:~/.m2
         - ./log:/logs
       ports:
         - "8080:8080"
