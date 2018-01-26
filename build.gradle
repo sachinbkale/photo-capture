@@ -57,27 +57,6 @@ task copyKey(type: Copy) {
     into 'build/libs'
 }
 
-task buildDocker2(type: Docker) {
-	  dependsOn   copyJar
-	  baseImage = 'java:openjdk-8'
-	  push = project.hasProperty('push')
-	  tag = 'kalesa/photo-capture'
-	  addFile {
-	    from jar
-	    rename {'photo-capture.jar'}
-	  }
-	  addFile file('keystore.p12')
-	  doFirst {
-        copy {
-            from 'log'
-            into stageDir
-        }
-    }
-	  entryPoint(['java', '-Djava.security.egd=file:/dev/./urandom', '-jar', '/photo-capture.jar'])
-	  exposePort(80)
-	  exposePort(8080)
-	  exposePort(8443)
-}
 task buildDocker(type: Docker, dependsOn: build) {
 	  push = true
 	  applicationName = jar.baseName
@@ -90,6 +69,9 @@ task buildDocker(type: Docker, dependsOn: build) {
 	    }
 	  }
 	  entryPoint(['java', '-Djava.security.egd=file:/dev/./urandom', '-jar', '/photo-capture.jar']) 
+	  exposePort(80)
+	  exposePort(8080)
+	  exposePort(8443)
 }
 task wrapper(type: Wrapper) {
     gradleVersion = '2.10' //we want gradle 2.10 to run this project
