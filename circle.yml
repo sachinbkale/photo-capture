@@ -18,8 +18,6 @@ dependencies:
       - ~/.gradle
       - ~/.ivy2
       - ~/.m2
-  override:
-      - ./gradlew resolveAllDependencies
 test:
   pre:
     -  gradle buildDocker
