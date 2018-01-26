@@ -12,7 +12,7 @@ machine:
   services:
     - docker
 dependencies:
- pre:
+  pre:
     - pip install docker-compose==1.13.0 docker==2.3.0
   cache_directories:
       - ~/.gradle
