@@ -63,7 +63,7 @@ task buildDocker(type: Docker, dependsOn: build) {
   baseImage = 'openjdk:8-jre-alpine'
   push = project.hasProperty('push')
   tag = 'kalesa/photo-capture'
-  dockerfile = file('build/docker/Dockerfile')
+  dockerfile = file('src/main/docker/Dockerfile')
   addFile {
     from jar
     rename {'app.jar'}
