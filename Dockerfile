@@ -26,7 +26,7 @@ RUN gradle build
 #ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "/photo-capture.jar"]
 
 #CMD ["java", "-cp", "target/photo-capture-0.0.1-SNAPSHOT.jar","com.cronos.posidon.CronosWebApplication"]
-ADD photo-capture-0.0.1-SNAPSHOT.jar photo-capture.jar
+ADD build/lib/photo-capture/photo-capture-0.0.1-SNAPSHOT.jar /photo-capture.jar
 RUN bash -c 'touch /photo-capture.jar'
 ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "/photo-capture.jar"]
 EXPOSE 80
