@@ -1,62 +1,71 @@
 buildscript {
-    repositories {
-        jcenter()
-    }
+	ext {
+		springBootVersion = '1.5.2.RELEASE'
+		gradleDockerVersion = '1.2'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+		classpath("se.transmode.gradle:gradle-docker:${gradleDockerVersion}")
+	}
+}
+group = 'sachinkale'
 
-    dependencies {
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.1'
-        classpath "io.spring.gradle:dependency-management-plugin:0.5.0.RELEASE"
-        classpath 'com.netflix.nebula:gradle-extra-configurations-plugin:2.2.+'
-    }
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'docker'
+
+jar {
+	baseName = 'photo-capture'
+	version = '0.0.1-SNAPSHOT'
+}
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+	mavenCentral()
 }
 
-
-allprojects {
-    group = 'ru.trylogic.spring.boot.thrift'
-    version = '0.0.2'
-
-    repositories {
-        jcenter()
-    }
-    
-    apply plugin: 'idea'
-    apply plugin: "io.spring.dependency-management"
-    apply plugin: 'provided-base'
-
-    dependencyManagement {
-        dependencies {
-            dependencySet(group:'org.springframework.boot', version: '1.2.3.RELEASE') {
-                entry "spring-boot-starter-web"
-                entry "spring-boot-starter-test"
-                entry "spring-boot-starter-actuator"
-            }
-            dependency "org.springframework:spring-core:4.1.6.RELEASE"
-            dependency "org.apache.thrift:libthrift:0.9.2"
-            dependency "org.projectlombok:lombok:1.16.2"
-        }
-    }
-    
-    task resolveAllDependencies {
-        doLast {
-            configurations.all { it.resolve() }
-        }
-    }
+dependencies {
+    compile('org.springframework.boot:spring-boot-starter-web')
+    compile group: 'junit', name: 'junit', version: '4.12'
+    compile('org.springframework.boot:spring-boot-starter-thymeleaf')
+    compile('com.github.sarxos:webcam-capture:0.3.10')
+    compile("org.springframework.boot:spring-boot-devtools")
+    compile("org.apache.tomcat.embed:tomcat-embed-jasper")
+	    
+    testCompile("org.springframework.boot:spring-boot-starter-test")
 }
 
-subprojects {
-    apply plugin: 'java'
-    sourceCompatibility = 1.8
-    targetCompatibility = 1.8
+bootRun {
+    addResources = true
+}
 
-    test {
-        reports {
-            junitXml.enabled = true
-            html.enabled = true
-        }
+springBoot {
+    mainClass = "com.cronos.posidon.CronosWebApplication"
+}
+task copyKey(type: Copy) {
+    from 'keystore.p12'
+    into 'build/libs'
+}
+
+task buildDocker(type: Docker, dependsOn: build) {
+  push = true
+  applicationName = jar.baseName
+  dockerfile = file('docker/Dockerfile')
+  doFirst {
+    copy {
+      from jar
+      into stageDir
+      from 'keystore.p12'
+      into 'stageDir
     }
-    
-    dependencies {
-        provided "org.projectlombok:lombok"
-        testCompile "org.springframework.boot:spring-boot-starter-test"
-    }
+  }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.10' //we want gradle 2.10 to run this project
 }
