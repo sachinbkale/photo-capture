@@ -59,12 +59,14 @@ task buildDocker(type: Docker, dependsOn: build) {
   applicationName = jar.baseName
   dockerfile = file('Dockerfile')
   addFile file('keystore.p12')
-  doFirst {
-    copy {
-      from jar
-      into stageDir
-    }
+  addFile {
+    from jar
+    rename {'photo-capture.jar'}
   }
+  entryPoint(['java', '-Djava.security.egd=file:/dev/./urandom', '-jar', '/photo-capture.jar'])
+  exposePort(80)
+  exposePort(8080)
+  exposePort(8443)  
 }
 
 task wrapper(type: Wrapper) {
