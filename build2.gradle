@@ -31,9 +31,13 @@ repositories {
 
 dependencies {
     compile('org.springframework.boot:spring-boot-starter-web')
+    compile group: 'junit', name: 'junit', version: '4.12'
     compile('org.springframework.boot:spring-boot-starter-thymeleaf')
-    compile('org.springframework.boot:spring-boot-devtools')
     compile('com.github.sarxos:webcam-capture:0.3.10')
+    compile("org.springframework.boot:spring-boot-devtools")
+    compile("org.apache.tomcat.embed:tomcat-embed-jasper")
+	    
+    testCompile("org.springframework.boot:spring-boot-starter-test")
 }
 
 bootRun {
@@ -47,22 +51,29 @@ task copyKey(type: Copy) {
     from 'keystore.p12'
     into 'build/libs'
 }
-task copyJar(type: Copy) {
-    dependsOn   'jar'
-    from        "build/libs/photo-capture-${project.version}.jar"
-    into        'build/docker'
-    rename { String fileName ->
-        fileName.replace("-${project.version}", "")
+
+task buildDocker(type: Docker, dependsOn: build) {
+  push = true
+  applicationName = jar.baseName
+  dockerfile = file('docker/Dockerfile')
+  doFirst {
+    copy {
+      from jar
+      into stageDir
+      from 'keystore.p12'
+      into 'stageDir
     }
+  }
 }
+
 task wrapper(type: Wrapper) {
     gradleVersion = '2.10' //we want gradle 2.10 to run this project
 }
 
 //buildDocker.dependsOn(copyJar)
 
-task stage (
-  dependsOn: ['compileJava', 'processResources', 'classes', 'findMainClass', 'jar', 'bootRepackage', 'assemble']
-)
+//task stage (
+//  dependsOn: ['compileJava', 'processResources', 'classes', 'findMainClass', 'jar', 'bootRepackage', 'assemble']
+//)
 //docker run -p 8080:8080 -p 8443:8443 -p 80:80 -d kalesa/photo-capture
 //docker build . -t kalesa/photo-capture
