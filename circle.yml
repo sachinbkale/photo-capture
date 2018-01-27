@@ -1,6 +1,6 @@
 machine:
   timezone:
-    US/Chicago
+    US/Los Angeles
   java:
     version: oraclejdk8
   environment:
