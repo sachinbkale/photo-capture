@@ -9,6 +9,7 @@ buildscript {
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
 		classpath("se.transmode.gradle:gradle-docker:${gradleDockerVersion}")
+         	classpath("org.codehaus.groovy:groovy-backports-compat23:2.3.5")
 	}
 }
 group = 'sachinkale'
@@ -39,7 +40,6 @@ dependencies {
     compile('com.github.sarxos:webcam-capture:0.3.10')
     compile("org.springframework.boot:spring-boot-devtools")
     compile("org.apache.tomcat.embed:tomcat-embed-jasper")
-    compile('org.codehaus.groovy:groovy-backports-compat23:2.4.10')
     testCompile("org.springframework.boot:spring-boot-starter-test")
 }
 
