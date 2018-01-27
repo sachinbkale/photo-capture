@@ -23,6 +23,7 @@ test:
   pre:
     -  gradle buildDocker
   override:
+    - docker build --rm=false -t $DOCKER_HUB_USER_ID/photo_capture .
     - docker run --rm=false --name photo_capture -d $DOCKER_HUB_USER_ID/photo_capture 
 deployment:
   hub:
