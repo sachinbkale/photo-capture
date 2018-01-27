@@ -72,3 +72,10 @@ task buildDocker(type: Docker, dependsOn: build) {
 task wrapper(type: Wrapper) {
     gradleVersion = '2.4' 
  }
+
+buildDocker.dependsOn(build)
+
+task stage (dependsOn: ['compileJava', 'processResources', 'classes', 'findMainClass', 'jar', 'bootRepackage', 'assemble'])
+
+//docker run -p 8080:8080 -p 8443:8443 -p 80:80 -d kalesa/photo-capture
+//docker build . -t kalesa/photo-capture
