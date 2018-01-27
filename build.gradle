@@ -47,21 +47,15 @@ bootRun {
 springBoot {
     mainClass = "com.cronos.posidon.CronosWebApplication"
 }
-task copyKey(type: Copy) {
-    from 'keystore.p12'
-    into 'build/libs'
-}
 
 task buildDocker(type: Docker, dependsOn: build) {
   push = true
   applicationName = jar.baseName
-  dockerfile = file('docker/Dockerfile')
+  dockerfile = file('Dockerfile')
   doFirst {
     copy {
       from jar
       into stageDir
-      from 'keystore.p12'
-      into 'stageDir
     }
   }
 }
