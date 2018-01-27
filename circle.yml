@@ -1,21 +1,30 @@
+general:
+  artifacts:
+    - "build/lib/photo-capture-*.jar"
 machine:
-  timezone:
-    US/Los Angeles
+  pre:
+    - curl -sSL https://s3.amazonaws.com/circle-downloads/install-circleci-docker.sh | bash -s -- 1.10.0
+    - sudo chmod 0755 /usr/bin/docker
   java:
-    version: oraclejdk8
-  environment:
-    TERM: dumb
-
+    version: oraclejdk7
+  maven:
+    version: maven3
+  services:
+    - docker
 dependencies:
-  cache_directories:
-    - ~/.gradle
-    - ~/.ivy2
-    - ~/.m2
-  override:
+  pre:
+    - pip install docker-compose==1.13.0 docker==2.3.0
     - gradle build
+  cache_directories:
+      - ~/.gradle
+      - ~/.ivy2
+      - ~/.m2
 test:
+  pre:
+    -  docker build
   override:
-    - gradle test
+    - docker run -d -p 8843:8843 photo_capture; sleep 10
+    - curl --retry 5 --retry-delay 5 -v https://localhost:8843/capture
 deployment:
   hub:
     branch: /.*/
