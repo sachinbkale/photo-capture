@@ -55,6 +55,7 @@ springBoot {
 
 task buildDocker(type: Docker, dependsOn: build) {
   push = true
+  tag = 'sachinkale/photo-capture:latest'
   applicationName = jar.baseName
   dockerfile = file('Dockerfile')
   addFile file('keystore.p12')
