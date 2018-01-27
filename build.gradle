@@ -3,7 +3,7 @@ general:
     - "build/lib/photo-capture-*.jar"
 machine:
   java:
-    version: oraclejdk7
+    version: oraclejdk8
   maven:
     version: maven3
   services:
@@ -16,8 +16,6 @@ dependencies:
       - ~/.ivy2
       - ~/.m2
 test:
-  pre:
-    -  docker build
   override:
     - docker run -d -p 8843:8843 photo_capture; sleep 10
     - curl --retry 5 --retry-delay 5 -v https://localhost:8843/capture
