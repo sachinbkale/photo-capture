@@ -39,7 +39,7 @@ dependencies {
     compile('com.github.sarxos:webcam-capture:0.3.10')
     compile("org.springframework.boot:spring-boot-devtools")
     compile("org.apache.tomcat.embed:tomcat-embed-jasper")
-    classpath 'org.codehaus.groovy:groovy-backports-compat23:2.3.5'
+    classpath 'org.codehaus.groovy:groovy-backports-compat23:2.4.10'
     testCompile("org.springframework.boot:spring-boot-starter-test")
 }
 
