@@ -5,7 +5,7 @@ RUN mkdir -p /images-upload /log
 #ADD photo-capture-0.0.1-SNAPSHOT.jar photo-capture.jar
 #RUN bash -c 'touch /photo-capture.jar'
 
-ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/photo-capture.jar"]
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/photo-capture-0.0.1-SNAPSHOT.jar"]
 
 EXPOSE 80
 EXPOSE 8080
