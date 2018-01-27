@@ -42,7 +42,9 @@ dependencies {
     compile("org.apache.tomcat.embed:tomcat-embed-jasper")
     testCompile("org.springframework.boot:spring-boot-starter-test")
 }
-
+dependencyManagement {
+    applyMavenExclusions false
+}
 bootRun {
     addResources = true
 }
