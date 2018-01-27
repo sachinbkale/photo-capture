@@ -1,0 +1,30 @@
+ version: '2.0'
+ services:
+   mongodb:
+    container_name: photo-mongo
+    image: mongo:3.6
+    environment:
+        - MONGO_DATA_DIR=/data/db
+        - MONGO_LOG_DIR=/dev/null
+    volumes:
+        - /data/db:/data/db
+    ports:
+        - 27017:27017
+    command: mongod --smallfiles --logpath=/dev/null # --quiet
+    
+   photo-capture:
+      restart: always
+      container_name: photo-capture
+      build: . 
+      working_dir: /
+      volumes:
+        - "$HOME/.m2:/.m2"
+        - ~/.gradle:/.gradle
+        - ~/.m2:~/.m2
+        - ./log:/logs
+      ports:
+        - "8080:8080"
+        - "8443:8443"
+      command: gradle bootRun
+      depends_on:
+        - mongodb
