@@ -57,6 +57,7 @@ task buildDocker(type: Docker, dependsOn: build) {
   push = true
   applicationName = jar.baseName
   dockerfile = file('Dockerfile')
+  addFile file('keystore.p12')
   doFirst {
     copy {
       from jar
