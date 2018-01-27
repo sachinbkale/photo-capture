@@ -55,7 +55,7 @@ springBoot {
 
 task buildDocker(type: Docker, dependsOn: build) {
   push = false
-  tag = '$DOCKER_HUB_USER_ID/photo_capture'
+  tag = 'sachinkale/photo_capture'
   applicationName = jar.baseName
   dockerfile = file('Dockerfile')
   addFile file('keystore.p12')
