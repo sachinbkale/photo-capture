@@ -1,7 +1,7 @@
 FROM java
 VOLUME /tmp
 RUN mkdir -p /images-upload /log
-ADD keystore.p12 /
+#ADD keystore.p12 /
 ADD photo-capture-0.0.1-SNAPSHOT.jar photo-capture.jar
 RUN bash -c 'touch /photo-capture.jar'
 
