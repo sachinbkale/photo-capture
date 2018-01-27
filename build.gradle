@@ -54,7 +54,7 @@ springBoot {
 }
 
 task buildDocker(type: Docker, dependsOn: build) {
-  push = true
+  push = false
   tag = '$DOCKER_HUB_USER_ID/photo_capture'
   applicationName = jar.baseName
   dockerfile = file('Dockerfile')
