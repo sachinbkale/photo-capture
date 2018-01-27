@@ -12,10 +12,10 @@ dependencies:
     - ~/.ivy2
     - ~/.m2
   override:
-    - ./gradlew resolveAllDependencies
+    - gradle build
 test:
   override:
-    - ./gradlew test
+    - gradle test
 deployment:
   hub:
     branch: /.*/
