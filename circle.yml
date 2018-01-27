@@ -6,7 +6,7 @@ machine:
     - curl -sSL https://s3.amazonaws.com/circle-downloads/install-circleci-docker.sh | bash -s -- 1.10.0
     - sudo chmod 0755 /usr/bin/docker
   java:
-    version: oraclejdk7
+    version: oraclejdk8
   maven:
     version: maven3
   services:
