@@ -10,14 +10,13 @@ ENV GRADLE_HOME /opt/gradle-3.3
 ENV PATH $PATH:/opt/gradle-3.3/bin
 
 
-WORKDIR /code
-ADD build.gradle /code/build.gradle
-ADD src /code/src
+WORKDIR /.
+COPY . /code/
+
 RUN ["gradle", "build"]
 
-ADD build/libs/photo-capture-0.0.1-SNAPSHOT.jar /photo-capture.jar
+#ADD build/libs/photo-capture-0.0.1-SNAPSHOT.jar /photo-capture.jar
 RUN bash -c 'touch /photo-capture.jar'
-ADD keystore.p12 /code/
 
 #RUN bash -c 'touch /photo-capture.jar'
 ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/photo-capture.jar"]
