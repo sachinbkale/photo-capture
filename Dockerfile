@@ -17,6 +17,7 @@ RUN ["gradle", "build"]
 
 RUN bash -c 'touch /code/photo-capture-0.0.1-SNAPSHOT.jar'
 COPY build/libs/photo-capture-0.0.1-SNAPSHOT.jar /code/photo-capture-0.0.1-SNAPSHOT.jar
+COPY keystore.p12 /
 ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/code/photo-capture-0.0.1-SNAPSHOT.jar"]
 
 EXPOSE 80
