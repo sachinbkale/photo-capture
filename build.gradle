@@ -66,7 +66,7 @@ task buildDocker(type: Docker, dependsOn: build) {
       rename {'photo-capture.jar'}
     }
   }
-  entryPoint(['java', '-Djava.security.egd=file:/dev/./urandom', '-jar', '/photo-capture-0.0.1-SNAPSHOT.jar'])
+  entryPoint(['java', '-Djava.security.egd=file:/dev/./urandom', '-jar', '/photo-capture.jar'])
   exposePort(80)
   exposePort(8080)
   exposePort(8443)  
