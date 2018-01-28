@@ -15,10 +15,8 @@ COPY . /code/
 
 RUN ["gradle", "build"]
 
-#ADD build/libs/photo-capture-0.0.1-SNAPSHOT.jar /photo-capture.jar
-RUN bash -c 'touch /photo-capture.jar'
-
-#RUN bash -c 'touch /photo-capture.jar'
+RUN bash -c 'touch /code/photo-capture-0.0.1-SNAPSHOT.jar'
+COPY build/libs/photo-capture-0.0.1-SNAPSHOT.jar /code/photo-capture-0.0.1-SNAPSHOT.jar
 ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/code/photo-capture-0.0.1-SNAPSHOT.jar"]
 
 EXPOSE 80
