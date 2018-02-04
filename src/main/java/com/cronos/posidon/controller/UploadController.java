@@ -16,12 +16,11 @@ import java.nio.file.Paths;
 public class UploadController {
 
     //Save the uploaded file to this folder
-    //private static String UPLOADED_FOLDER = "/Users/namita/image-upload/";
-	private static String UPLOADED_FOLDER = "./image-upload/";
+    private static String UPLOADED_FOLDER = "/images-upload/";
 	
     @GetMapping("/")
     public String index() {
-        return "upload";
+        return "capture";
     }
 
     @GetMapping("/capture")
