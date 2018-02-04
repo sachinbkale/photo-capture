@@ -44,16 +44,17 @@ public class UploadController {
 
         try {
 
+        		logger.info("Uplpading | Original File Name=" + file.getOriginalFilename());
             // Get the file and save it somewhere
             byte[] bytes = file.getBytes();
-            Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
+            Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename() + ".jpg");
 
             logger.info("Uplpading | Folder Path=" + path.getParent());
 
             Files.write(path, bytes);            
             
             redirectAttributes.addFlashAttribute("message",
-                    "You successfully uploaded '" + file.getOriginalFilename() + "'");
+                    "You successfully uploaded '" + path.getFileName() + "'");
 
             logger.info("Uploaded  Successfulle | File Path=" + path.getParent() +"/" + path.getFileName());
             
