@@ -99,7 +99,7 @@ function save_photo() {
 		// Create a FormData and append the file with "image" as parameter name
 		var formDataToUpload = new FormData(form);
 		//formDataToUpload.append("image", blob);
-		formDataToUpload.append("file", myBlob, "my-image.png" + generateQuickGuid());
+		formDataToUpload.append("file", myBlob, "my-image-" + generateQuickGuid() +".png");
 		//formData.append('file', file);
 
 		  var xhr = new XMLHttpRequest();
