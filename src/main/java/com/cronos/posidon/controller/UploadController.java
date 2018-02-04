@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 
 @Controller
 public class UploadController {
@@ -40,11 +42,11 @@ public class UploadController {
 
             // Get the file and save it somewhere
             byte[] bytes = file.getBytes();
-            Path path = Paths.get(UPLOADED_FOLDER + "/"+file.getOriginalFilename());
+            Path path = Paths.get(UPLOADED_FOLDER + "/"+file.getOriginalFilename()+getUID());
             Files.write(path, bytes);
 
             redirectAttributes.addFlashAttribute("message",
-                    "You successfully uploaded '" + file.getOriginalFilename() + "'");
+                    "You successfully uploaded '" + file.getOriginalFilename()+getUID() +"'");
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -56,6 +58,15 @@ public class UploadController {
     @GetMapping("/uploadStatus")
     public String uploadStatus() {
         return "uploadStatus";
+    }
+
+    public static String getUID() {
+	int DIGITS = 14;
+	StringBuilder sb = new StringBuilder(DIGITS);
+	for(int i = 0;i < DIGITS;i++) {	
+	    sb.append((char) (Math.random() * 10 + '0')).append(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC));
+	}
+	return sb.toString();
     }
 
 }
