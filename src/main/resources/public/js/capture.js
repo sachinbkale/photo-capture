@@ -59,12 +59,10 @@ function blobToFile(theBlob, fileName){
     theBlob.name = fileName;
     return theBlob;
 }
-
 function generateQuickGuid() {
     return Math.random().toString(36).substring(2, 15) +
         Math.random().toString(36).substring(2, 15);
 }
-
 function save_photo() {
 	// actually snap photo (from preview freeze) and display it
 	Webcam.snap( function(data_uri) {
@@ -99,7 +97,7 @@ function save_photo() {
 		// Create a FormData and append the file with "image" as parameter name
 		var formDataToUpload = new FormData(form);
 		//formDataToUpload.append("image", blob);
-		formDataToUpload.append("file", myBlob, "my-image-" + generateQuickGuid() +".png");
+		formDataToUpload.append("file", myBlob, "my-image-" + generateQuickGuid());
 		//formData.append('file', file);
 
 		  var xhr = new XMLHttpRequest();
