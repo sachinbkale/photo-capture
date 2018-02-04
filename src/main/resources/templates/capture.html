@@ -43,9 +43,11 @@
     </div><!-- /.navbar-collapse -->
 </nav>
 
-<div class="container-fluid">
-	<h3>Capture Image</h3>
-	<div id="my_camera"></div>
+<div class="container">
+	<h3 style="text-align:center">Capture Image</h3>
+	<div style="width:100%" align="center">
+		<div id="my_camera"></div>
+	</div>
 	<span id="monitor"></span>
 	<!-- First, include the Webcam.js JavaScript Library -->
 	<script type="text/javascript" src="/js/webcam.js"></script>
@@ -66,7 +68,7 @@
 	</script>
 	
 	<!-- A button for taking snaps -->
-	<form>
+	<form style="width: 100%;text-align:center">
 		<div id="pre_take_buttons">
 		    <button type="button" class="btn btn-primary" onclick="preview_snapshot()">
 		      <span class="glyphicon glyphicon-camera"></span> Take Snapshot 
