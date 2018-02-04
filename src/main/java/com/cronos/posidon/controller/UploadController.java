@@ -46,7 +46,7 @@ public class UploadController {
 
             // Get the file and save it somewhere
             byte[] bytes = file.getBytes();
-            Path path = Paths.get(UPLOADED_FOLDER + "/"+file.getOriginalFilename());
+            Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
 
             logger.info("Uplpading | Folder Path=" + path.getParent());
 
