@@ -60,6 +60,11 @@ function blobToFile(theBlob, fileName){
     return theBlob;
 }
 
+function generateQuickGuid() {
+    return Math.random().toString(36).substring(2, 15) +
+        Math.random().toString(36).substring(2, 15);
+}
+
 function save_photo() {
 	// actually snap photo (from preview freeze) and display it
 	Webcam.snap( function(data_uri) {
@@ -104,8 +109,4 @@ function save_photo() {
 
 		  return false; // To avoid actual submission of the form
 	} );
-	var generateQuickGuid = function() {
-	    return Math.random().toString(36).substring(2, 15) +
-	        Math.random().toString(36).substring(2, 15);
-	}
 }
