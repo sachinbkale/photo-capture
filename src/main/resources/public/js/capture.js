@@ -5,6 +5,10 @@ function preview_snapshot() {
 	// swap button sets
 	document.getElementById('pre_take_buttons').style.display = 'none';
 	document.getElementById('post_take_buttons').style.display = '';
+	
+	document.getElementById('menu-preview').style.display = 'none';
+	document.getElementById('menu-take-another').style.display = '';
+	document.getElementById('menu-save').style.display = '';
 }
 
 function cancel_preview() {
@@ -14,6 +18,9 @@ function cancel_preview() {
 	// swap buttons back
 	document.getElementById('pre_take_buttons').style.display = '';
 	document.getElementById('post_take_buttons').style.display = 'none';
+	document.getElementById('menu-preview').style.display = '';
+	document.getElementById('menu-take-another').style.display = 'none';
+	document.getElementById('menu-save').style.display = 'none';
 }
 /**
  * Convert a base64 string in a Blob according to the data and contentType.
@@ -58,11 +65,16 @@ function save_photo() {
 	Webcam.snap( function(data_uri) {
 		// display results in page
 		document.getElementById('results').innerHTML = 
-			'<h2>Here is your image:</h2>' + 
+			'<h2>Your captured image:</h2>' + 
 			'<img src="'+data_uri+'"/>';
 		// swap buttons back
 		document.getElementById('pre_take_buttons').style.display = '';
+		document.getElementById('menu-preview').style.display = '';
+		
 		document.getElementById('post_take_buttons').style.display = 'none';
+		document.getElementById('menu-take-another').style.display = 'none';
+		document.getElementById('menu-save').style.display = 'none';
+		
 		
 		var form = document.getElementById("myAwesomeForm");
 
@@ -82,7 +94,7 @@ function save_photo() {
 		// Create a FormData and append the file with "image" as parameter name
 		var formDataToUpload = new FormData(form);
 		//formDataToUpload.append("image", blob);
-		formDataToUpload.append("file", myBlob, "my-image.png");
+		formDataToUpload.append("file", myBlob, "my-image.png" + generateQuickGuid());
 		//formData.append('file', file);
 
 		  var xhr = new XMLHttpRequest();
@@ -92,4 +104,8 @@ function save_photo() {
 
 		  return false; // To avoid actual submission of the form
 	} );
+	var generateQuickGuid = function() {
+	    return Math.random().toString(36).substring(2, 15) +
+	        Math.random().toString(36).substring(2, 15);
+	}
 }
