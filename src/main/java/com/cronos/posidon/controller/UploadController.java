@@ -28,6 +28,11 @@ public class UploadController {
         return "capture";
     }
 
+    @GetMapping("/load")
+    public String load() {
+        return "load";
+    }    
+    
     @GetMapping("/capture")
     public String capture() {
     	return "capture";
